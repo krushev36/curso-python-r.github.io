@@ -21,3 +21,4 @@
 %who ## will list all variables that exist in the global scope. 
 %time ## will give you information about the time taken in a single run of the code in your cell.
 ```
+## Operaciones basicas y Variables

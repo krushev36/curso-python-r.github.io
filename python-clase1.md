@@ -1,5 +1,5 @@
 ---
-permalink: /python-clase1.html
+permalink: /python-clase1.md
 ---
 
 # titulo

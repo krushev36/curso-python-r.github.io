@@ -1,0 +1,190 @@
+---
+title: "sesion1R"
+output: html_notebook
+
+---
+
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+
+```{r}
+plot(cars)
+```
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
+
+```{r}
+
+```
+
+## Definir el directorio de trabajo
+R necesita que se defina el directorio donde se esta trabajando, en jupyter notebook el directorio sera desde donde se ejecuta en el terminal el comando `Jupyter notebook`
+
+
+```{r}
+#Obtener el directorio de trabajo actual
+DirTrabajo <-getwd() 
+DirTrabajo
+```
+
+```{r}
+## Definir otro directorio para trabajar
+setwd(dir = './Datos') # ir a la carpeta Datos
+getwd() #ver cual es el directorio actual de trabajo
+```
+
+
+
+```{r}
+# regresar al directorio original de trabajo
+setwd(DirTrabajo) 
+getwd()
+```
+
+## Manejo de Paquetes
+R tiene un repositorio donde estan la mayoria de [paquetes cran](https://cran.r-project.org/web/packages/available_packages_by_name.html):
+
+
+- Desde el menu en Rstudio en: Packages->Install package(s).
+- **Nota:** Anaconda instala los paquetes mas importantes para r asi:
+
+Para importar librerias usamos `library`
+```{r}
+# Importar una libreria
+library(stringr) # Esta ya esta instalada
+```
+
+Para averiguar el estado de instalacion de un paquete usamos `require`:
+```{r}
+# devuelve TRUE o FALSE según el paquete esté o no instalado
+require(audio) 
+```
+
+```{r}
+library(audio) #Este Paquete no esta instalado
+```
+
+
+
+### Instalar, Eliminar y actualizar paquetes de CRAN
+
+
+Para instalar paquetes se usa el comando `install.packages()`
+```{r}
+# Antes de instalar un paquete es bueno detectar si ya esta instalado
+if(!require(audio)) # verificar si esta instalado el paquete
+    install.packages("audio") # Comando para instalar paquetes, note las dobles comillas
+library(audio) #Importar libreria
+```
+
+Para actualizar paquetes:
+```{r}
+# Actualizar paquetes de cran
+update.packages() #se recomienda por linea de comando
+```
+
+Para remover paquetes temporalmente de la memoria:
+```{r}
+detach("package:audio", unload=TRUE)
+```
+
+Para eliminar definitivamente paquetes:
+```{r}
+remove.packages("audio") #es necesario las dobles comillas
+```
+
+
+Listar paquetes instalados:
+```{r}
+installed.packages()
+```
+
+
+
+Note que es diferente instalar un paquete a importarlo para hacerlo disponible en el kernel. La instalacion solo se
+requiere una vez, mientras que la importacion se requiere cada que se va a usar:
+
+```{r}
+if(!require(sos)) # verificar si esta instalado el paquete
+    install.packages("sos") # Comando para instalar paquetes, note las dobles comillas
+library(sos) #Importar libreria
+findFn("audio")# Buscar paquetes que contengan la palabra audio
+```
+
+### Instalar paquetes con conda
+El listado de paquetes se puede ver en : https://anaconda.org/r/repo
+
+Para instalar un paquete se hace en linea de comando asi:
+
+`conda install -c r [nombre-del-paquete]`
+
+Por ejemplo, para instalar el kernel de r en jupyter podemos usar conda:
+
+```{bash}
+#conda install -c r r-irkernel
+#conda install -c r r-essentials
+```
+
+
+## Obteniendo ayuda con R
+Además de una búsqueda en google o de visitar [StackOverflow](www.stackoverflow.com), hay algunas maneras incorporadas de obtener ayuda con R! La mayoría de las funciones R tienen documentación en línea.
+
+- help(algo) documentacion
+- help.search("algo") Busca en la ayuda
+- apropos("algo") nombre de todos los objetos parecidos a ”algo”
+- help.start() Inicia la version HTML de la ayuda
+
+```{r}
+# Necesita ayuda con vectors
+help(vector)
+```
+
+
+```{r}
+# Necesita ayuda con vectors
+help(help.search)
+```
+
+
+Buscar en CRAN todo lo que contenga la palabra 'numeric':
+```{r}
+help.search('numeric')
+```
+
+```{r}
+# Tambien se puede usar ??para buscar
+??vector
+```
+
+
+## Aritmetica con R
+
+```{r}
+54+55
+```
+
+```{r}
+55-50
+```
+
+```{r}
+1/2
+```
+
+```{r}
+2^2
+```
+
+```{r}
+
+```
+
+
+
+
+
+

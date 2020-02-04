@@ -1,5 +1,5 @@
 
-# SESION 4
+# SESION 3
 
 
 ```python
@@ -305,6 +305,32 @@ $$
 \sum^\infty_{n=1} \frac{n(n+1)}{x^n} = \frac{2x^2}{(1-x)^3}
 $$
 
+### Ejemplo:  Random Walk:
+A random walk is a mathematical object, known as a stochastic or random process, that describes a path that consists of a succession of random steps on some mathematical space such as the integers. An elementary example of a random walk is the random walk on the integer number line,  $\mathbb{Z}$￼, which starts at 0 and at each step moves +1 or −1 with equal probability.
+
+
+```python
+nsize=1000
+x = np.zeros(nsize)
+y = np.zeros(nsize)
+
+for i in range(1,nsize):
+    x[i] = i
+    prob = np.random.rand()
+    if prob<=0.5:
+        y[i] = y[i-1] -1.
+    else:
+        y[i] = y[i-1] + 1.
+        
+plt.figure()
+plt.plot(x,y)
+plt.show()
+```
+
+
+![png](output_19_0.png)
+
+
 ## Ejemplo: Conjunto de Mandelbrot
 
 
@@ -337,44 +363,347 @@ show()
 ```
 
 
-![png](output_19_0.png)
+![png](output_21_0.png)
 
 
-### Ejemplo:  Random Walk:
-A random walk is a mathematical object, known as a stochastic or random process, that describes a path that consists of a succession of random steps on some mathematical space such as the integers. An elementary example of a random walk is the random walk on the integer number line,  $\mathbb{Z}$￼, which starts at 0 and at each step moves +1 or −1 with equal probability.
+## Write Files: Numpy
 
 
 ```python
-nsize=1000
-x = np.zeros(nsize)
-y = np.zeros(nsize)
+x = x.reshape((len(x),1))
+y = y.reshape((len(y),1))
 
-for i in range(1,nsize):
-    x[i] = i
-    prob = np.random.rand()
-    if prob<=0.5:
-        y[i] = y[i-1] -1.
-    else:
-        y[i] = y[i-1] + 1.
-        
 
+data = np.concatenate((x,y),axis=1)
+print(data.shape)
+
+np.savetxt('random-walk.tsv',data)
+```
+
+    (1000, 2)
+
+
+## [Libreria OS ](https://docs.python.org/3/library/os.html)
+This module provides a portable way of using operating system dependent functionality. If you just want to read or write a file see open(), if you want to manipulate paths, see the os.path module, and if you want to read all the lines in all the files on the command line see the fileinput module. For creating temporary files and directories see the tempfile module, and for high-level file and directory handling see the shutil module.
+
+
+```python
+## comandos del os
+os.getcwd()
 ```
 
 
 ```python
 
+os.listdir('.')
 ```
 
 
-![png](output_22_0.png)
-
+```python
+os.fchdir("path")
+```
 
 
 ```python
-hist_plot(metropolis(10000))
+os.mkdir("path")
+```
+
+## Read Files: 
+
+
+```python
+# Creamos un archivo de texto con dos columnas y varias lineas
+
+file = open('datafile.txt','r')
+
+count=0
+for lines in file:
+    strings = lines.split(" ")
+    print(strings[0]+' '+strings[1])
+    count+=1
+    
+print('total lines: '+str(count))
+```
+
+## Read Files: Numpy
+
+
+```python
+newdata = np.loadtxt('random-walk.tsv')
+```
+
+
+```python
+x1, x2 = np.loadtxt('random-walk.tsv', usecols=(0,1),unpack=True, delimiter=' ')
+
+
+plt.figure()
+plt.plot(x1,x2)
 plt.show()
 ```
 
+# [Libreria Pandas](https://pandas.pydata.org/)
+pandas aims to be the fundamental high-level building block for doing practical, real world data analysis in Python. Additionally, it has the broader goal of becoming the most powerful and flexible open source data analysis / manipulation tool available in any language.
+## READ DATAFILE WITH PANDAS
 
-![png](output_23_0.png)
 
+```python
+# CREE UN ARCHIVO DE DATOS FORMADO POR COLUMNAS DE DIFERENTES TIPOS DE VARIABLES, STRINGS, INT, FLOATS
+import pandas as pd
+df = pd.read_csv('datafile2.txt',header=0,sep=" ")
+```
+
+
+```python
+df
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>#1.nombre</th>
+      <th>#2.apellido</th>
+      <th>#3.cc</th>
+      <th>#4.edad</th>
+      <th>#5.hijos</th>
+      <th>#6.estado</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>juan</td>
+      <td>perez</td>
+      <td>12345</td>
+      <td>20</td>
+      <td>0</td>
+      <td>soltero</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>sandra</td>
+      <td>henao</td>
+      <td>5642</td>
+      <td>25</td>
+      <td>1</td>
+      <td>casada</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+```python
+df.iloc[:,0]
+```
+
+
+
+
+    0      juan
+    1    sandra
+    Name: #1.nombre, dtype: object
+
+
+
+
+```python
+df.describe()
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>#3.cc</th>
+      <th>#4.edad</th>
+      <th>#5.hijos</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>2.000000</td>
+      <td>2.000000</td>
+      <td>2.000000</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>8993.500000</td>
+      <td>22.500000</td>
+      <td>0.500000</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>4739.736754</td>
+      <td>3.535534</td>
+      <td>0.707107</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>5642.000000</td>
+      <td>20.000000</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>7317.750000</td>
+      <td>21.250000</td>
+      <td>0.250000</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>8993.500000</td>
+      <td>22.500000</td>
+      <td>0.500000</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>10669.250000</td>
+      <td>23.750000</td>
+      <td>0.750000</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>12345.000000</td>
+      <td>25.000000</td>
+      <td>1.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+```python
+df2 = pd.DataFrame({'lista':np.linspace(1,100,200)}) 
+df2.head(3)
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>lista</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1.000000</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1.497487</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1.994975</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+```python
+df2.dtypes
+```
+
+
+
+
+    lista    float64
+    dtype: object
+
+
+
+## [Clases](https://docs.python.org/3/tutorial/classes.html)
+El mecanismo de clases de Python agrega clases al lenguaje con un mínimo de nuevas sintaxis y semánticas. Es una mezcla de los mecanismos de clase encontrados en C++ y Modula-3. Como es cierto para los módulos, las clases en Python no ponen una barrera absoluta entre la definición y el usuario, sino que más bien se apoya en la cortesía del usuario de no “forzar la definición”. Sin embargo, se mantiene el poder completo de las características más importantes de las clases: el mecanismo de la herencia de clases permite múltiples clases base, una clase derivada puede sobreescribir cualquier método de su(s) clase(s) base, y un método puede llamar al método de la clase base con el mismo nombre. Los objetos pueden tener una cantidad arbitraria de datos.
+
+
+
+```python
+class objeto:
+    """
+    Notas para manual de referencia
+    """
+    def __init__(self, name,age,gender):
+        self.name = name
+        self.age = age
+        self.gender = gender
+    def func(self):
+        print('hola mundo')
+
+```
+
+
+```python
+?objeto
+```
+
+
+```python
+x.name
+```
+
+
+```python
+x.age
+```

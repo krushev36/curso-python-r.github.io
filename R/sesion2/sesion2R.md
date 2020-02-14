@@ -1,5 +1,5 @@
 
-# Conceptos de Programacion en Pytho y R<a class="tocSkip">
+# Conceptos de Programacion en Python y R<a class="tocSkip">
 ## Semillero Programación Analítica<a class="tocSkip">
 ### Ciencia de Datos<a class="tocSkip">
 ### Por Julian A. Restrepo <a class="tocSkip">

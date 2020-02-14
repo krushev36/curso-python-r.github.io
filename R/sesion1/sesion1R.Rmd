@@ -1,25 +1,9 @@
 ---
 title: "sesion1R"
-output: html_notebook
-
+output:
+  html_notebook: default
+  pdf_document: default
 ---
-
-
-This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
-
-Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
-
-```{r}
-plot(cars)
-```
-
-Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
-
-When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
-
-```{r}
-
-```
 
 ## Definir el directorio de trabajo
 R necesita que se defina el directorio donde se esta trabajando, en jupyter notebook el directorio sera desde donde se ejecuta en el terminal el comando `Jupyter notebook`
@@ -180,11 +164,202 @@ help.search('numeric')
 ```
 
 ```{r}
+(1.5+1/2)^2
+```
 
+## Variables en R
+```{r}
+deposit <- 10
+# Observe que parece una flecha apuntando hacia la variable.
+variable.name <- 100
+# Veamos la variable
+variable.name
+```
+
+
+
+
+## Tipos de Datos
+### Datos de punto flotante:
+```{r}
+n <- 2.2
+print(n) # Jupyter notebook muestra las variables solo escribiendolas
+```
+
+### Datos enteros:
+```{r}
+i <- 5
+print(i)
+```
+
+### Datos booleanos o Logicos:
+```{r}
+t <- TRUE
+f <- FALSE
+print(f)
+```
+
+### Caracteres (Characters)
+los datos tipo Texto/string son conocidos como characters en R.
+```{r}
+# Comillas dobles
+char <- "Data scientists, according to interviews and expert estimates, spend from 50 percent to 80 percent of their time mired in this more mundane labor of collecting and preparing unruly digital data, before it can be explored for useful nuggets"
+char
+```
+
+```{r}
+# Comillas simples
+c <- 'Hola Mundo!'
+c
+```
+### Verificar la clase de los Datos
+Se puede realizar con la funcion class():
+
+```{r}
+class(t)
+```
+
+
+```{r}
+class(char)
+```
+
+Numericos
+```{r}
+class(n)
+```
+
+```{r}
+class(Inf)
+```
+
+
+
+```{r}
+class(NaN)
+```
+
+
+Complejos:
+
+```{r}
+typeof(4+5i)
+```
+
+
+
+### Manejo de Variables en el workspace
+listado de las variables en el workspace
+```{r}
+ls()
+```
+
+
+Borrar una variable del workspace
+```{r}
+# 
+rm(deposit)
+ls()
 ```
 
 
 
 
 
+
+
+```{r}
+# imguR()
+plot(x=1:10, y=-1:-10, col=1:10, pch=19, main="oh hai dere")
+dev.off()
+```
+
+```{r}
+install.packages("tidyverse")
+# library(tidyverse)
+
+```
+
+
+```{r}
+library(tidyverse)
+# housing <- read_csv("dataSets/landdata-states.csv")
+```
+
+
+```{r}
+housing <- read_csv("dataSets/landdata-states.csv")
+```
+
+```{r}
+data<-rnorm(1000)
+hist(data)
+# dev.off()
+```
+
+```{r}
+library(ggplot2)
+ggplot(data)
+```
+
+
+
+
+
+
+```{r}
+pdf("Figure_test.pdf")
+x<-seq(0,6*pi,length.out = 100)
+y <- sin(x)
+plot(x,y,type='b',col='red',lwd=10)
+```
+
+```{r}
+help(plot)
+```
+
+```{r}
+getwd()
+```
+
+
+```{r}
+installed.packages("plotly")
+```
+
+
+
+```{r}
+library(plotly)
+
+mtcars$am[which(mtcars$am == 0)] <- 'Automatic'
+mtcars$am[which(mtcars$am == 1)] <- 'Manual'
+mtcars$am <- as.factor(mtcars$am)
+
+p <- plot_ly(mtcars, x = ~wt, y = ~hp, z = ~qsec, color = ~am, colors = c('#BF382A', '#0C4B8E')) %>%
+  add_markers() %>%
+  layout(scene = list(xaxis = list(title = 'Weight'),
+                     yaxis = list(title = 'Gross horsepower'),
+                     zaxis = list(title = '1/4 mile time')))
+
+p
+```
+
+
+
+```{r}
+require(grDevices) # for colours
+x <- -6:16
+op <- par(mfrow = c(2, 2))
+contour(outer(x, x), method = "edge", vfont = c("sans serif", "plain"))
+z <- outer(x, sqrt(abs(x)), FUN = "/")
+image(x, x, z)
+contour(x, x, z, col = "pink", add = TRUE, method = "edge",
+        vfont = c("sans serif", "plain"))
+contour(x, x, z, ylim = c(1, 6), method = "simple", labcex = 1,
+        xlab = quote(x[1]), ylab = quote(x[2]))
+contour(x, x, z, ylim = c(-6, 6), nlev = 20, lty = 2, method = "simple",
+        main = "20 levels; \"simple\" labelling method")
+par(op)
+```
 
